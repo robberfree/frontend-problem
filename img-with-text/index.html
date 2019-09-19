@@ -46,15 +46,15 @@
                 var img = dom.querySelector('img');
                 var span = dom.querySelector('span');
 
-                var imgWidth = parseFloat(window.getComputedStyle(img).width);
-                var imgMarginText = parseFloat(dom.getAttribute('data-img-margin-text'));
-
-                dom.style.paddingLeft = imgWidth + imgMarginText + 'px';
-
                 function handleResize() {
+                    var imgWidth = parseFloat(window.getComputedStyle(img).width);
+                    var imgMarginText = parseFloat(dom.getAttribute('data-img-margin-text'));
+                    dom.style.paddingLeft = imgWidth + imgMarginText + 'px';
+
                     var domRect = dom.getBoundingClientRect();
                     var spanRect = span.getBoundingClientRect();
                     var imgX = spanRect.left - domRect.left - imgMarginText - imgWidth;
+
                     img.style.transform = 'translate(' + imgX + 'px,-50%)';
                 }
 
