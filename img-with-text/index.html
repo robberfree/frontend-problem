@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>img width text</title>
+    <style>
+        .img-text {
+            position: relative;
+            text-align: center;
+            padding: 0;
+        }
+
+        .img-text img {
+            position: absolute;
+            transform: translateY(-50%);
+            left: 0;
+            top: 50%;
+        }
+    </style>
+</head>
+
+<body>
+    <p class="img-text" data-img-margin-text="8">
+        <img src="https://github.githubassets.com/images/modules/logos_page/Octocat.png" width="32" />
+        <span>
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+            industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
+            scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into
+            electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of
+            Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like
+            Aldus PageMaker including versions of Lorem Ipsum.
+        </span>
+    </p>
+
+    <script>
+        (function () {
+            var imgTexts = Array.prototype.slice.call(document.querySelectorAll('.img-text'));
+            imgTexts.forEach(function (imgText) {
+                ImgText(imgText);
+            })
+
+            function ImgText(dom) {
+                var img = dom.querySelector('img');
+                var span = dom.querySelector('span');
+
+                var imgWidth = parseFloat(window.getComputedStyle(img).width);
+                var imgMarginText = parseFloat(dom.getAttribute('data-img-margin-text'));
+
+                dom.style.paddingLeft = imgWidth + imgMarginText + 'px';
+
+                function handleResize() {
+                    var domRect = dom.getBoundingClientRect();
+                    var spanRect = span.getBoundingClientRect();
+                    var imgX = spanRect.left - domRect.left - imgMarginText - imgWidth;
+                    img.style.transform = 'translate(' + imgX + 'px,-50%)';
+                }
+
+                handleResize();
+                window.addEventListener('resize', debounce(handleResize, 32));
+
+            }
+
+            function debounce(func, delay) {
+                var id;
+                return function () {
+                    clearTimeout(id);
+                    id = setTimeout(func, delay)
+                }
+            }
+        })();
+    </script>
+
+</body>
+
+</html>
