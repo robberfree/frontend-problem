@@ -1,7 +1,7 @@
 ## Requirements
 
-- img is vertical center based on span
-- img always keep 8px margin from span
+- img is vertical center based on span height
+- img always keep 8px margin from text's left edge
 - span always keep text-align center
 - img with span always keep horizontal center
 
